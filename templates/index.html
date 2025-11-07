@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexa - Sistema de Gestión de Talento Humano</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Barra de navegación moderna -->
+    <nav class="nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li class="nav-logo">
+                    <a href="#" class="logo">Conexa RRHH</a>
+                </li>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#modulos">Módulos</a></li>
+                <li><a href="#beneficios">Beneficios</a></li>
+                <li><a href="#estadisticas">Estadísticas</a></li>
+                <li>
+                    <button class="btn">Iniciar Sesión</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sección Hero -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="grid">
+                <div class="hero-content animate-on-scroll">
+                    <h1>Optimiza tu Gestión de Talento Humano</h1>
+                    <p>Sistema integral para la administración eficiente de recursos humanos</p>
+                    <div class="hero-buttons">
+                        <button class="btn">Solicitar Demo</button>
+                        <button class="btn btn-secondary">Ver Tutorial</button>
+                    </div>
+                </div>
+                <div class="hero-stats animate-on-scroll">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Gestión Completa</h3>
+                        <p>Desde selección hasta evaluación</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Ahorro de Tiempo</h3>
+                        <p>70% menos tiempo en tareas administrativas</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Mayor Eficiencia</h3>
+                        <p>Procesos optimizados y automatizados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Módulos -->
+    <section id="modulos" class="features">
+        <div class="container">
+            <h2>Módulos del Sistema</h2>
+            <div class="grid">
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Selección de Personal</h3>
+                    <p>Gestión completa del proceso de reclutamiento</p>
+                    <a href="/modulo/seleccion" class="btn-link">Acceder</a>
+                </div>
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>Contratación</h3>
+                    <p>Automatización de contratos y documentación</p>
+                    <a href="/modulo/contratacion" class="btn-link">Acceder</a>
+                </div>
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Seguridad Social</h3>
+                    <p>Gestión de afiliaciones y novedades</p>
+                    <a href="/modulo/seguridad-social" class="btn-link">Acceder</a>
+                </div>
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Liquidaciones</h3>
+                    <p>Cálculo de nómina y prestaciones</p>
+                    <a href="/modulo/liquidaciones" class="btn-link">Acceder</a>
+                </div>
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Capacitación</h3>
+                    <p>Gestión de formación del personal</p>
+                    <a href="/modulo/capacitacion" class="btn-link">Acceder</a>
+                </div>
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Evaluación</h3>
+                    <p>Sistema de evaluación de desempeño</p>
+                    <a href="/modulo/evaluacion" class="btn-link">Acceder</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Beneficios -->
+    <section id="beneficios" class="benefits">
+        <div class="container">
+            <h2>Beneficios del Sistema</h2>
+            <div class="grid">
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-tasks"></i>
+                    <h3>Procesos Optimizados</h3>
+                    <p>Automatización de tareas repetitivas y reducción de errores humanos</p>
+                </div>
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-database"></i>
+                    <h3>Centralización</h3>
+                    <p>Toda la información en una única plataforma integrada</p>
+                </div>
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Análisis y Reportes</h3>
+                    <p>Informes detallados y métricas en tiempo real</p>
+                </div>
+                <div class="card animate-on-scroll">
+                    <i class="fas fa-lock"></i>
+                    <h3>Seguridad</h3>
+                    <p>Protección de datos sensibles y control de accesos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Estadísticas -->
+    <section id="estadisticas" class="statistics">
+        <div class="container">
+            <h2>Impacto en Números</h2>
+            <div class="stats-grid">
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">70%</div>
+                    <div class="stat-label">Reducción en tiempo administrativo</div>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Precisión en cálculos</div>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">50%</div>
+                    <div class="stat-label">Mejora en productividad</div>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Cumplimiento normativo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <h2>Solicita una Demostración</h2>
+            <div class="card">
+                <form id="demo-form" class="animate-on-scroll">
+                    <div class="form-group">
+                        <label for="company">Nombre de la Empresa</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nombre del Contacto</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Corporativo</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employees">Número de Empleados</label>
+                        <select id="employees" name="employees" required>
+                            <option value="">Seleccione...</option>
+                            <option value="1-50">1-50 empleados</option>
+                            <option value="51-200">51-200 empleados</option>
+                            <option value="201-500">201-500 empleados</option>
+                            <option value="500+">Más de 500 empleados</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="interests">Módulos de Interés</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="interests" value="seleccion"> Selección</label>
+                            <label><input type="checkbox" name="interests" value="contratacion"> Contratación</label>
+                            <label><input type="checkbox" name="interests" value="seguridad_social"> Seguridad Social</label>
+                            <label><input type="checkbox" name="interests" value="liquidaciones"> Liquidaciones</label>
+                            <label><input type="checkbox" name="interests" value="capacitacion"> Capacitación</label>
+                            <label><input type="checkbox" name="interests" value="evaluacion"> Evaluación</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Solicitar Demo</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Conexa RRHH</h3>
+                    <p>Sistema integral de gestión de talento humano</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>Email: info@conexa.com</p>
+                    <p>Tel: (123) 456-7890</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Síguenos</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Conexa - Software de Gestión de Talento Humano. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

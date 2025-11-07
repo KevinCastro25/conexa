@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="module-title">Seguridad Social</h1>
+    
+    <div class="grid">
+        <!-- Afiliaciones -->
+        <div class="card">
+            <h2><i class="fas fa-user-shield"></i> Nueva Afiliación</h2>
+            <form id="newAffiliationForm" class="form">
+                <div class="form-group">
+                    <label for="employeeId">Empleado</label>
+                    <select id="employeeId" required>
+                        <option value="">Seleccione un empleado...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Servicios a Afiliar</label>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="services" value="eps"> EPS
+                        </label>
+                        <label>
+                            <input type="checkbox" name="services" value="arl"> ARL
+                        </label>
+                        <label>
+                            <input type="checkbox" name="services" value="pension"> Pensión
+                        </label>
+                        <label>
+                            <input type="checkbox" name="services" value="ccf"> Caja de Compensación
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Iniciar Afiliaciones</button>
+            </form>
+        </div>
+
+        <!-- Estado de Afiliaciones -->
+        <div class="card">
+            <h2><i class="fas fa-clipboard-check"></i> Estado de Afiliaciones</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>EPS</th>
+                            <th>ARL</th>
+                            <th>Pensión</th>
+                            <th>CCF</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="affiliationsStatusTable">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Novedades -->
+        <div class="card">
+            <h2><i class="fas fa-exclamation-circle"></i> Registrar Novedad</h2>
+            <form id="newIncidentForm" class="form">
+                <div class="form-group">
+                    <label for="incidentEmployee">Empleado</label>
+                    <select id="incidentEmployee" required>
+                        <option value="">Seleccione un empleado...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="incidentType">Tipo de Novedad</label>
+                    <select id="incidentType" required>
+                        <option value="">Seleccione...</option>
+                        <option value="incapacidad">Incapacidad</option>
+                        <option value="licencia">Licencia</option>
+                        <option value="cambio_eps">Cambio de EPS</option>
+                        <option value="cambio_pension">Cambio de Fondo de Pensión</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Fecha Inicio</label>
+                    <input type="date" id="startDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="endDate">Fecha Fin</label>
+                    <input type="date" id="endDate">
+                </div>
+                <div class="form-group">
+                    <label for="observation">Observaciones</label>
+                    <textarea id="observation" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn">Registrar Novedad</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

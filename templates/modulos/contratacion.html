@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="module-title">Gestión de Contratación</h1>
+    
+    <div class="grid">
+        <!-- Nuevo Contrato -->
+        <div class="card">
+            <h2><i class="fas fa-file-signature"></i> Nuevo Contrato</h2>
+            <form id="newContractForm" class="form">
+                <div class="form-group">
+                    <label for="employeeName">Nombre del Empleado</label>
+                    <input type="text" id="employeeName" required>
+                </div>
+                <div class="form-group">
+                    <label for="position">Cargo</label>
+                    <input type="text" id="position" required>
+                </div>
+                <div class="form-group">
+                    <label for="contractType">Tipo de Contrato</label>
+                    <select id="contractType" required>
+                        <option value="">Seleccione...</option>
+                        <option value="indefinido">Término Indefinido</option>
+                        <option value="fijo">Término Fijo</option>
+                        <option value="obra">Obra o Labor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Fecha de Inicio</label>
+                    <input type="date" id="startDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="salary">Salario Base</label>
+                    <input type="number" id="salary" required>
+                </div>
+                <button type="submit" class="btn">Generar Contrato</button>
+            </form>
+        </div>
+
+        <!-- Contratos Activos -->
+        <div class="card">
+            <h2><i class="fas fa-briefcase"></i> Contratos Activos</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>Cargo</th>
+                            <th>Tipo</th>
+                            <th>Inicio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activeContractsTable">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Documentos Pendientes -->
+        <div class="card">
+            <h2><i class="fas fa-clock"></i> Documentos Pendientes</h2>
+            <div class="pending-docs">
+                <ul id="pendingDocsList" class="checklist">
+                    <!-- Se llenará dinámicamente -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

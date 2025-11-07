@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="module-title">Evaluación de Desempeño</h1>
+    
+    <div class="grid">
+        <!-- Nueva Evaluación -->
+        <div class="card">
+            <h2><i class="fas fa-clipboard-check"></i> Nueva Evaluación</h2>
+            <form id="newEvaluationForm" class="form">
+                <div class="form-group">
+                    <label for="evaluationType">Tipo de Evaluación</label>
+                    <select id="evaluationType" required>
+                        <option value="">Seleccione...</option>
+                        <option value="desempeno">Desempeño General</option>
+                        <option value="objetivos">Cumplimiento de Objetivos</option>
+                        <option value="competencias">Evaluación de Competencias</option>
+                        <option value="360">Evaluación 360°</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="evaluatedEmployee">Empleado a Evaluar</label>
+                    <select id="evaluatedEmployee" required>
+                        <option value="">Seleccione un empleado...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="evaluator">Evaluador</label>
+                    <select id="evaluator" required>
+                        <option value="">Seleccione un evaluador...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="period">Periodo de Evaluación</label>
+                    <select id="period" required>
+                        <option value="">Seleccione...</option>
+                        <option value="2025-Q1">Q1 2025</option>
+                        <option value="2025-Q2">Q2 2025</option>
+                        <option value="2025-Q3">Q3 2025</option>
+                        <option value="2025-Q4">Q4 2025</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Iniciar Evaluación</button>
+            </form>
+        </div>
+
+        <!-- Evaluaciones en Proceso -->
+        <div class="card">
+            <h2><i class="fas fa-hourglass-half"></i> Evaluaciones en Proceso</h2>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Empleado</th>
+                            <th>Tipo</th>
+                            <th>Periodo</th>
+                            <th>Progreso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activeEvaluationsTable">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Resultados y Análisis -->
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> Resultados y Análisis</h2>
+            <div class="form-group">
+                <label for="resultsPeriod">Seleccionar Periodo</label>
+                <select id="resultsPeriod">
+                    <option value="2025-Q1">Q1 2025</option>
+                    <option value="2025-Q2">Q2 2025</option>
+                    <option value="2025-Q3">Q3 2025</option>
+                    <option value="2025-Q4">Q4 2025</option>
+                </select>
+            </div>
+            <div class="results-summary">
+                <div class="stat-item">
+                    <label>Promedio General:</label>
+                    <span id="averageScore">0</span>
+                </div>
+                <div class="stat-item">
+                    <label>Evaluaciones Completadas:</label>
+                    <span id="completedEvaluations">0</span>
+                </div>
+                <div class="stat-item">
+                    <label>Pendientes:</label>
+                    <span id="pendingEvaluations">0</span>
+                </div>
+            </div>
+            <div id="evaluationCharts" class="chart-container">
+                <!-- Aquí se insertarán los gráficos -->
+            </div>
+        </div>
+
+        <!-- Plan de Desarrollo -->
+        <div class="card">
+            <h2><i class="fas fa-tasks"></i> Planes de Desarrollo</h2>
+            <div class="development-plans">
+                <div class="form-group">
+                    <label for="employeePlan">Seleccionar Empleado</label>
+                    <select id="employeePlan">
+                        <option value="">Seleccione un empleado...</option>
+                    </select>
+                </div>
+                <div id="developmentPlanContent" class="plan-content">
+                    <!-- Se llenará dinámicamente con el plan de desarrollo del empleado -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
