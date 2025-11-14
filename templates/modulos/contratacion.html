@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <h1 class="module-title">Gestión de Contratación</h1>
+
+<div class="module-header-with-image">
+    <div class="module-header-bg">
+        <img src="{{ url_for('static', filename='images/contratacion.jpg') }}" alt="Contratación">
+        <div class="module-header-overlay"></div>
+    </div>
+    <div class="container">
+        <div class="module-header-content">
+            <p class="text-uppercase text-accent mb-2">Módulo de Onboarding</p>
+            <h1>Gestión de Contratación</h1>
+            <p class="module-description">Automatización completa del proceso de contratación, generación de contratos y gestión de documentación legal.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container section"
     
     <div class="grid">
         <!-- Nuevo Contrato -->
@@ -9,31 +23,46 @@
             <h2><i class="fas fa-file-signature"></i> Nuevo Contrato</h2>
             <form id="newContractForm" class="form">
                 <div class="form-group">
-                    <label for="employeeName">Nombre del Empleado</label>
-                    <input type="text" id="employeeName" required>
-                </div>
-                <div class="form-group">
-                    <label for="position">Cargo</label>
-                    <input type="text" id="position" required>
-                </div>
-                <div class="form-group">
-                    <label for="contractType">Tipo de Contrato</label>
-                    <select id="contractType" required>
-                        <option value="">Seleccione...</option>
-                        <option value="indefinido">Término Indefinido</option>
-                        <option value="fijo">Término Fijo</option>
-                        <option value="obra">Obra o Labor</option>
+                    <label for="empleado_id">Empleado</label>
+                    <select id="empleado_id" name="empleado_id" required>
+                        <option value="">Seleccione un empleado...</option>
+                        <!-- Se llenará dinámicamente -->
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="startDate">Fecha de Inicio</label>
-                    <input type="date" id="startDate" required>
+                    <label for="cargo">Cargo</label>
+                    <input type="text" id="cargo" name="cargo" required>
                 </div>
                 <div class="form-group">
-                    <label for="salary">Salario Base</label>
-                    <input type="number" id="salary" required>
+                    <label for="tipo">Tipo de Contrato</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="">Seleccione...</option>
+                        <option value="Indefinido">Término Indefinido</option>
+                        <option value="Fijo">Término Fijo</option>
+                        <option value="Obra o Labor">Obra o Labor</option>
+                    </select>
                 </div>
-                <button type="submit" class="btn">Generar Contrato</button>
+                <div class="form-group">
+                    <label for="fecha_inicio">Fecha de Inicio</label>
+                    <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="salario">Salario Base</label>
+                    <input type="number" id="salario" name="salario" required>
+                </div>
+                <div class="form-group">
+                    <label for="departamento">Departamento</label>
+                    <input type="text" id="departamento" name="departamento" value="General">
+                </div>
+                <div class="form-group">
+                    <label for="jornada">Jornada</label>
+                    <select id="jornada" name="jornada">
+                        <option value="Tiempo completo">Tiempo completo</option>
+                        <option value="Medio tiempo">Medio tiempo</option>
+                        <option value="Por horas">Por horas</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Generar Contrato</button>
             </form>
         </div>
 
@@ -69,4 +98,488 @@
         </div>
     </div>
 </div>
+
+<style>
+/* Module Header with Image */
+.module-header-with-image {
+    position: relative;
+    padding: 120px 0 80px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.module-header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.module-header-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.module-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.85) 0%, rgba(26, 26, 26, 0.65) 100%);
+}
+
+.module-header-with-image .container {
+    position: relative;
+    z-index: 1;
+}
+
+.module-header-content {
+    max-width: 700px;
+}
+
+.module-header-content h1,
+.module-header-content p,
+.module-header-content .text-uppercase {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.module-description {
+    max-width: 700px;
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-accent);
+    color: white;
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: var(--text-sm);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.pending-docs ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pending-docs li {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.pending-docs li:last-child {
+    border-bottom: none;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: var(--space-4);
+    border-bottom: 2px solid var(--color-gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0d0d0d 100%);
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: white;
+    font-size: var(--text-xl);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: var(--text-xl);
+    cursor: pointer;
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: var(--space-4);
+}
+
+.modal-footer {
+    padding: var(--space-4);
+    border-top: 1px solid var(--color-gray-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    background: var(--color-gray-50);
+}
+
+.detail-section {
+    margin-bottom: var(--space-4);
+}
+
+.detail-section:last-child {
+    margin-bottom: 0;
+}
+
+.detail-grid {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.detail-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+    align-items: center;
+}
+
+.detail-item label {
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: var(--text-sm);
+}
+
+.detail-item span {
+    color: var(--color-gray-700);
+    font-size: var(--text-base);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+.badge-success {
+    background: rgba(46, 125, 50, 0.1);
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.badge-warning {
+    background: rgba(245, 124, 0, 0.1);
+    color: #f57c00;
+    font-weight: 600;
+}
+</style>
+
+<script>
+// Cargar empleados para el selector
+async function loadEmployees() {
+    try {
+        const response = await fetch('/api/employees');
+        const data = await response.json();
+        const employees = data.data || data;
+        
+        const select = document.getElementById('empleado_id');
+        select.innerHTML = '<option value="">Seleccione un empleado...</option>';
+        
+        employees.forEach(emp => {
+            const option = document.createElement('option');
+            option.value = emp.id;
+            option.textContent = `${emp.nombre} - ${emp.cargo || 'Sin cargo'}`;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error al cargar empleados:', error);
+    }
+}
+
+// Cargar contratos activos
+async function loadContracts() {
+    try {
+        const response = await fetch('/api/contracts');
+        const data = await response.json();
+        const contracts = data.data || data;
+        
+        const tbody = document.getElementById('activeContractsTable');
+        tbody.innerHTML = '';
+        
+        if (contracts.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center">No hay contratos registrados</td></tr>';
+            return;
+        }
+        
+        contracts.forEach(contract => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${contract.empleado_nombre || 'Empleado #' + contract.empleado_id}</td>
+                <td>${contract.cargo}</td>
+                <td><span class="badge">${contract.tipo}</span></td>
+                <td>${new Date(contract.fecha_inicio).toLocaleDateString('es-CO')}</td>
+                <td>
+                    <button class="btn btn-sm" onclick="viewContract(${contract.id})">
+                        <i class="fas fa-eye"></i> Ver
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error al cargar contratos:', error);
+    }
+}
+
+async function viewContract(id) {
+    try {
+        const response = await fetch('/api/contracts');
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+            const contract = result.data.find(c => c.id === id);
+            
+            if (!contract) {
+                alert('No se encontró el contrato');
+                return;
+            }
+            
+            // Crear modal
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 800px;">
+                    <div class="modal-header">
+                        <h2><i class="fas fa-file-contract"></i> Detalle del Contrato</h2>
+                        <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <!-- Información del Empleado -->
+                        <div class="detail-section">
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem;">
+                                <i class="fas fa-user"></i> Información del Empleado
+                            </h3>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label><i class="fas fa-id-card"></i> Nombre Completo:</label>
+                                    <span style="font-weight: 600;">${contract.empleado_nombre || 'Empleado #' + contract.empleado_id}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-briefcase"></i> Cargo:</label>
+                                    <span>${contract.cargo}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-building"></i> Departamento:</label>
+                                    <span>${contract.departamento || 'General'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Detalles del Contrato -->
+                        <div class="detail-section">
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem;">
+                                <i class="fas fa-file-signature"></i> Detalles del Contrato
+                            </h3>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label><i class="fas fa-tag"></i> Tipo de Contrato:</label>
+                                    <span class="badge">${contract.tipo}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-calendar-alt"></i> Fecha de Inicio:</label>
+                                    <span>${formatDate(contract.fecha_inicio)}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-calendar-check"></i> Fecha de Fin:</label>
+                                    <span>${contract.fecha_fin ? formatDate(contract.fecha_fin) : 'Indefinido'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-clock"></i> Jornada:</label>
+                                    <span>${contract.jornada || 'Tiempo completo'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-signal"></i> Estado:</label>
+                                    <span class="badge ${contract.estado === 'activo' ? 'badge-success' : 'badge-warning'}">${contract.estado || 'Activo'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Información Salarial -->
+                        <div class="detail-section">
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem;">
+                                <i class="fas fa-dollar-sign"></i> Información Salarial
+                            </h3>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label><i class="fas fa-money-bill-wave"></i> Salario Base:</label>
+                                    <span style="font-size: 1.5rem; color: var(--color-accent); font-weight: bold;">
+                                        $${formatCurrency(contract.salario || 0)}
+                                    </span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-calculator"></i> Salario Mensual Neto (Aprox.):</label>
+                                    <span>$${formatCurrency((contract.salario || 0) * 0.92)}</span>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem; padding: 1rem; background: var(--color-gray-100); border-radius: var(--radius-md); font-size: 0.875rem; color: var(--color-gray-600);">
+                                <i class="fas fa-info-circle"></i> El salario neto es aproximado (descontando 8% de deducciones de ley: salud y pensión)
+                            </div>
+                        </div>
+                        
+                        <!-- Observaciones -->
+                        ${contract.observaciones ? `
+                        <div class="detail-section">
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem;">
+                                <i class="fas fa-sticky-note"></i> Observaciones
+                            </h3>
+                            <p style="color: var(--color-gray-700); line-height: 1.6; padding: 1rem; background: var(--color-gray-100); border-radius: var(--radius-md);">
+                                ${contract.observaciones}
+                            </p>
+                        </div>
+                        ` : ''}
+                        
+                        <!-- Información del Registro -->
+                        <div class="detail-section" style="background: var(--color-gray-100); padding: 1rem; border-radius: var(--radius-md); margin-top: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--color-gray-600);">
+                                <span><i class="fas fa-hashtag"></i> ID Contrato: ${contract.id}</span>
+                                ${contract.fecha_creacion ? `<span><i class="fas fa-calendar-plus"></i> Registrado: ${formatDate(contract.fecha_creacion)}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn btn-outline" onclick="this.closest('.modal-overlay').remove()">
+                            <i class="fas fa-times"></i> Cerrar
+                        </button>
+                        <button class="btn" onclick="imprimirContrato(${contract.id})">
+                            <i class="fas fa-print"></i> Imprimir Contrato
+                        </button>
+                        <button class="btn" onclick="descargarContrato(${contract.id})">
+                            <i class="fas fa-download"></i> Descargar PDF
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Cerrar al hacer clic fuera del modal
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error cargando detalle del contrato:', error);
+        alert('Error al cargar el detalle del contrato');
+    }
+}
+
+function formatCurrency(amount) {
+    const num = Math.round(amount);
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-CO', { 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+    });
+}
+
+function imprimirContrato(id) {
+    alert('Imprimiendo contrato #' + id + '\n\nEsta funcionalidad generará el contrato para impresión.');
+    // Aquí se implementaría la lógica de impresión
+}
+
+function descargarContrato(id) {
+    alert('Descargando contrato #' + id + '\n\nEsta funcionalidad generará y descargará el contrato en PDF.');
+    // Aquí se implementaría la lógica de descarga
+}
+
+// Cargar datos al iniciar
+document.addEventListener('DOMContentLoaded', function() {
+    loadEmployees();
+    loadContracts();
+    
+    // Recargar contratos después de crear uno nuevo
+    const form = document.getElementById('newContractForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            setTimeout(() => {
+                loadContracts();
+            }, 500);
+        });
+    }
+});
+</script>
+
 {% endblock %}

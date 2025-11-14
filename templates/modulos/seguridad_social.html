@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <h1 class="module-title">Seguridad Social</h1>
+
+<div class="module-header-with-image">
+    <div class="module-header-bg">
+        <img src="{{ url_for('static', filename='images/SEGURIDAD SOCIAL.jpg') }}" alt="Seguridad Social">
+        <div class="module-header-overlay"></div>
+    </div>
+    <div class="container">
+        <div class="module-header-content">
+            <p class="text-uppercase text-accent mb-2">Módulo de Protección Social</p>
+            <h1>Seguridad Social</h1>
+            <p class="module-description">Administración de afiliaciones a EPS, ARL, pensiones y cajas de compensación con seguimiento de novedades.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container section"
     
     <div class="grid">
         <!-- Afiliaciones -->
@@ -9,29 +23,47 @@
             <h2><i class="fas fa-user-shield"></i> Nueva Afiliación</h2>
             <form id="newAffiliationForm" class="form">
                 <div class="form-group">
-                    <label for="employeeId">Empleado</label>
-                    <select id="employeeId" required>
+                    <label for="employeeId">Empleado *</label>
+                    <select id="employeeId" name="empleado_id" required>
                         <option value="">Seleccione un empleado...</option>
                     </select>
                 </div>
+                
                 <div class="form-group">
-                    <label>Servicios a Afiliar</label>
-                    <div class="checkbox-group">
-                        <label>
-                            <input type="checkbox" name="services" value="eps"> EPS
-                        </label>
-                        <label>
-                            <input type="checkbox" name="services" value="arl"> ARL
-                        </label>
-                        <label>
-                            <input type="checkbox" name="services" value="pension"> Pensión
-                        </label>
-                        <label>
-                            <input type="checkbox" name="services" value="ccf"> Caja de Compensación
-                        </label>
-                    </div>
+                    <label for="affiliationType">Tipo de Afiliación *</label>
+                    <select id="affiliationType" name="tipo" required>
+                        <option value="">Seleccione...</option>
+                        <option value="eps">EPS - Entidad Promotora de Salud</option>
+                        <option value="arl">ARL - Administradora de Riesgos Laborales</option>
+                        <option value="pension">Fondo de Pensión</option>
+                        <option value="ccf">Caja de Compensación Familiar</option>
+                    </select>
                 </div>
-                <button type="submit" class="btn">Iniciar Afiliaciones</button>
+                
+                <div class="form-group">
+                    <label for="entity">Entidad *</label>
+                    <input type="text" id="entity" name="entidad" required placeholder="Ej: Salud Total, Compensar, Porvenir">
+                </div>
+                
+                <div class="form-group">
+                    <label for="affiliationNumber">Número de Afiliación</label>
+                    <input type="text" id="affiliationNumber" name="numero_afiliacion" placeholder="Ej: 123456789">
+                </div>
+                
+                <div class="form-group">
+                    <label for="affiliationDate">Fecha de Afiliación *</label>
+                    <input type="date" id="affiliationDate" name="fecha_afiliacion" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="affiliationStatus">Estado</label>
+                    <select id="affiliationStatus" name="estado">
+                        <option value="activo" selected>Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn">Registrar Afiliación</button>
             </form>
         </div>
 
@@ -63,13 +95,13 @@
             <form id="newIncidentForm" class="form">
                 <div class="form-group">
                     <label for="incidentEmployee">Empleado</label>
-                    <select id="incidentEmployee" required>
+                    <select id="incidentEmployee" name="empleado_id" required>
                         <option value="">Seleccione un empleado...</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="incidentType">Tipo de Novedad</label>
-                    <select id="incidentType" required>
+                    <select id="incidentType" name="tipo" required>
                         <option value="">Seleccione...</option>
                         <option value="incapacidad">Incapacidad</option>
                         <option value="licencia">Licencia</option>
@@ -79,19 +111,545 @@
                 </div>
                 <div class="form-group">
                     <label for="startDate">Fecha Inicio</label>
-                    <input type="date" id="startDate" required>
+                    <input type="date" id="startDate" name="fecha_inicio" required>
                 </div>
                 <div class="form-group">
                     <label for="endDate">Fecha Fin</label>
-                    <input type="date" id="endDate">
+                    <input type="date" id="endDate" name="fecha_fin">
                 </div>
                 <div class="form-group">
                     <label for="observation">Observaciones</label>
-                    <textarea id="observation" rows="3"></textarea>
+                    <textarea id="observation" name="observaciones" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn">Registrar Novedad</button>
             </form>
         </div>
     </div>
 </div>
+
+<style>
+.module-header-with-image {
+    position: relative;
+    padding: 120px 0 80px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.module-header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.module-header-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.module-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.85) 0%, rgba(26, 26, 26, 0.65) 100%);
+}
+
+.module-header-with-image .container {
+    position: relative;
+    z-index: 1;
+}
+
+.module-header-content {
+    max-width: 700px;
+}
+
+.module-header-content h1,
+.module-header-content p,
+.module-header-content .text-uppercase {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.module-description {
+    max-width: 700px;
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--color-gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0d0d0d 100%);
+    color: white;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: var(--text-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    transition: opacity var(--transition-base);
+}
+
+.modal-close:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    padding: var(--space-6);
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-footer {
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--color-gray-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+}
+
+.employee-info {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.employee-info h4 {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+}
+
+.affiliations-detail {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.affiliation-card {
+    padding: var(--space-4);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+}
+
+.affiliation-card.active {
+    border-color: var(--color-success);
+    background: rgba(46, 125, 50, 0.03);
+}
+
+.affiliation-card.inactive {
+    border-color: var(--color-gray-300);
+    background: rgba(0, 0, 0, 0.02);
+    opacity: 0.7;
+}
+
+.affiliation-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.affiliation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.affiliation-type {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-lg);
+    color: var(--color-primary);
+}
+
+.affiliation-type i {
+    color: var(--color-accent);
+}
+
+.affiliation-details p {
+    margin: var(--space-2) 0;
+    font-size: var(--text-sm);
+    color: var(--color-gray-700);
+}
+
+.affiliation-details strong {
+    color: var(--color-primary);
+}
+
+.badge-secondary {
+    background: rgba(158, 158, 158, 0.1);
+    color: #757575;
+}
+
+.text-sm {
+    font-size: var(--text-sm);
+}
+
+.text-gray-600 {
+    color: var(--color-gray-600);
+}
+
+.text-gray-700 {
+    color: var(--color-gray-700);
+}
+</style>
+
+<script>
+// Función para cargar empleados en los selectores
+async function loadEmployees() {
+    try {
+        const response = await fetch('/api/employees');
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+            const employees = result.data;
+            
+            // Llenar selector de afiliaciones
+            const employeeSelect = document.getElementById('employeeId');
+            const incidentSelect = document.getElementById('incidentEmployee');
+            
+            const options = employees.map(emp => 
+                `<option value="${emp.id}">${emp.nombre} - ${emp.documento || 'Sin documento'}</option>`
+            ).join('');
+            
+            if (employeeSelect) {
+                employeeSelect.innerHTML = '<option value="">Seleccione un empleado...</option>' + options;
+            }
+            
+            if (incidentSelect) {
+                incidentSelect.innerHTML = '<option value="">Seleccione un empleado...</option>' + options;
+            }
+            
+            console.log(`✓ ${employees.length} empleados cargados en selectores`);
+        }
+    } catch (error) {
+        console.error('Error cargando empleados:', error);
+    }
+}
+
+// Función para cargar estado de afiliaciones
+async function loadAffiliationsStatus() {
+    const tbody = document.getElementById('affiliationsStatusTable');
+    
+    try {
+        const response = await fetch('/api/affiliations');
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+            const affiliations = result.data;
+            
+            // Guardar afiliaciones globalmente para usar en el detalle
+            window.allAffiliations = affiliations;
+            
+            if (affiliations.length > 0) {
+                // Agrupar por empleado
+                const byEmployee = {};
+                affiliations.forEach(aff => {
+                    if (!byEmployee[aff.empleado_id]) {
+                        byEmployee[aff.empleado_id] = {
+                            nombre: aff.empleado_nombre || 'Empleado #' + aff.empleado_id,
+                            eps: '❌',
+                            arl: '❌',
+                            pension: '❌',
+                            ccf: '❌'
+                        };
+                    }
+                    byEmployee[aff.empleado_id][aff.tipo] = aff.estado === 'activo' ? '✅' : '⏸️';
+                });
+                
+                tbody.innerHTML = Object.entries(byEmployee).map(([empleadoId, emp]) => `
+                    <tr>
+                        <td><strong>${emp.nombre}</strong></td>
+                        <td class="text-center">${emp.eps}</td>
+                        <td class="text-center">${emp.arl}</td>
+                        <td class="text-center">${emp.pension}</td>
+                        <td class="text-center">${emp.ccf}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline" onclick="verDetalleAfiliaciones(${empleadoId}, '${emp.nombre}')">Ver Detalle</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } else {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center text-gray-600">
+                            No hay afiliaciones registradas
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+    } catch (error) {
+        console.error('Error cargando afiliaciones:', error);
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center text-danger">
+                    Error al cargar el estado de afiliaciones
+                </td>
+            </tr>
+        `;
+    }
+}
+
+// Función para ver detalle de afiliaciones de un empleado
+function verDetalleAfiliaciones(empleadoId, nombreEmpleado) {
+    const afiliacionesEmpleado = window.allAffiliations.filter(aff => aff.empleado_id == empleadoId);
+    
+    if (afiliacionesEmpleado.length === 0) {
+        alert('No hay afiliaciones registradas para este empleado');
+        return;
+    }
+    
+    // Crear el contenido del modal
+    const modalContent = `
+        <div class="modal-overlay" id="modalDetalle" onclick="cerrarModal()">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <h3><i class="fas fa-user-shield"></i> Detalle de Afiliaciones</h3>
+                    <button class="modal-close" onclick="cerrarModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="employee-info">
+                        <h4>${nombreEmpleado}</h4>
+                        <p class="text-sm text-gray-600">${afiliacionesEmpleado.length} afiliación(es) registrada(s)</p>
+                    </div>
+                    <div class="affiliations-detail">
+                        ${afiliacionesEmpleado.map(aff => `
+                            <div class="affiliation-card ${aff.estado === 'activo' ? 'active' : 'inactive'}">
+                                <div class="affiliation-header">
+                                    <div class="affiliation-type">
+                                        <i class="fas fa-${getIconForType(aff.tipo)}"></i>
+                                        <strong>${getTipoLabel(aff.tipo)}</strong>
+                                    </div>
+                                    <span class="badge ${aff.estado === 'activo' ? 'badge-success' : 'badge-secondary'}">
+                                        ${aff.estado === 'activo' ? 'Activa' : 'Inactiva'}
+                                    </span>
+                                </div>
+                                <div class="affiliation-details">
+                                    <p><strong>Entidad:</strong> ${aff.entidad || 'No especificada'}</p>
+                                    <p><strong>Número de Afiliación:</strong> ${aff.numero_afiliacion || 'N/A'}</p>
+                                    <p><strong>Fecha de Afiliación:</strong> ${aff.fecha_afiliacion ? formatDate(aff.fecha_afiliacion) : 'N/A'}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="cerrarModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Insertar el modal en el body
+    document.body.insertAdjacentHTML('beforeend', modalContent);
+}
+
+// Función para cerrar el modal
+function cerrarModal() {
+    const modal = document.getElementById('modalDetalle');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+// Funciones auxiliares
+function getIconForType(tipo) {
+    const icons = {
+        'eps': 'hospital',
+        'arl': 'hard-hat',
+        'pension': 'piggy-bank',
+        'ccf': 'home'
+    };
+    return icons[tipo] || 'shield-alt';
+}
+
+function getTipoLabel(tipo) {
+    const labels = {
+        'eps': 'EPS - Salud',
+        'arl': 'ARL - Riesgos Laborales',
+        'pension': 'Fondo de Pensión',
+        'ccf': 'Caja de Compensación Familiar'
+    };
+    return labels[tipo] || tipo.toUpperCase();
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-CO', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+}
+
+// Manejo del formulario de nueva afiliación
+document.getElementById('newAffiliationForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    e.stopImmediatePropagation(); // Evitar que el handler global de main.js procese este formulario
+    
+    const formData = new FormData(e.target);
+    const data = {};
+    
+    // Convertir FormData a objeto
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+    
+    // Convertir empleado_id a número
+    data.empleado_id = parseInt(data.empleado_id);
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+    
+    try {
+        const response = await fetch('/api/affiliations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+            if (window.ConexaApp && window.ConexaApp.showSuccessMessage) {
+                window.ConexaApp.showSuccessMessage(e.target, '✓ Afiliación registrada exitosamente');
+            } else {
+                alert('✓ Afiliación registrada exitosamente');
+            }
+            e.target.reset();
+            // Establecer la fecha actual como valor por defecto
+            document.getElementById('affiliationDate').valueAsDate = new Date();
+            loadAffiliationsStatus();
+        } else {
+            alert('Error: ' + (result.message || 'No se pudo crear la afiliación'));
+        }
+    } catch (error) {
+        console.error('Error creando afiliación:', error);
+        alert('Error al crear la afiliación. Por favor, intente nuevamente.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+    }
+}, true); // Usar captura (true) para ejecutarse antes que el handler global
+
+// Manejo del formulario de novedades
+document.getElementById('newIncidentForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    // Esta funcionalidad se puede implementar más adelante
+    alert('Funcionalidad de novedades en desarrollo');
+    e.target.reset();
+});
+
+// Cargar datos al iniciar la página
+document.addEventListener('DOMContentLoaded', () => {
+    loadEmployees();
+    loadAffiliationsStatus();
+    
+    // Establecer la fecha actual como valor por defecto en el formulario de afiliación
+    const affiliationDateInput = document.getElementById('affiliationDate');
+    if (affiliationDateInput) {
+        affiliationDateInput.valueAsDate = new Date();
+    }
+});
+</script>
+
 {% endblock %}

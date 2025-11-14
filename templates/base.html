@@ -4,16 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conexa - Gestión de Talento Humano</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- Google Fonts - Elegante Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Barra de navegación moderna -->
+    <!-- Navegación Premium -->
     <nav class="nav">
         <div class="container">
             <ul class="nav-list">
                 <li class="nav-logo">
-                    <a href="/" class="logo">Conexa RRHH</a>
+                    <a href="/" class="logo">
+                        <img src="{{ url_for('static', filename='images/CONEXA LOGO.png') }}" alt="Conexa RRHH" class="logo-img">
+                    </a>
                 </li>
                 <li><a href="/modulo/seleccion">Selección</a></li>
                 <li><a href="/modulo/contratacion">Contratación</a></li>
@@ -25,14 +36,45 @@
         </div>
     </nav>
 
-    {% block content %}{% endblock %}
+    <!-- Contenido Principal -->
+    <main style="padding-top: 80px;">
+        {% block content %}{% endblock %}
+    </main>
 
+    <!-- Footer Elegante -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 Conexa - Software de Gestión de Talento Humano</p>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <img src="{{ url_for('static', filename='images/CONEXA LOGO.png') }}" alt="Conexa" class="footer-logo">
+                    <p>Sistema integral de gestión de talento humano diseñado para optimizar todos los procesos de recursos humanos de su organización.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Módulos</h3>
+                    <p><a href="/modulo/seleccion">Selección de Personal</a></p>
+                    <p><a href="/modulo/contratacion">Contratación</a></p>
+                    <p><a href="/modulo/seguridad-social">Seguridad Social</a></p>
+                    <p><a href="/modulo/liquidaciones">Liquidaciones</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <p>Email: contacto@conexa.com</p>
+                    <p>Tel: +57 (1) 234 5678</p>
+                    <p>Bogotá, Colombia</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Conexa - Sistema de Gestión de Talento Humano. Todos los derechos reservados.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 </html>

@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <h1 class="module-title">Gestión de Capacitación</h1>
+
+<div class="module-header-with-image">
+    <div class="module-header-bg">
+        <img src="{{ url_for('static', filename='images/CAPACITACION.jpg') }}" alt="Capacitación">
+        <div class="module-header-overlay"></div>
+    </div>
+    <div class="container">
+        <div class="module-header-content">
+            <p class="text-uppercase text-accent mb-2">Módulo de Desarrollo</p>
+            <h1>Gestión de Capacitación</h1>
+            <p class="module-description">Planificación y seguimiento de programas de formación, gestión de inversión en desarrollo del talento humano.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container section"
     
     <div class="grid">
         <!-- Nuevo Programa de Capacitación -->
@@ -9,12 +23,12 @@
             <h2><i class="fas fa-graduation-cap"></i> Nuevo Programa</h2>
             <form id="newTrainingForm" class="form">
                 <div class="form-group">
-                    <label for="trainingName">Nombre del Programa</label>
-                    <input type="text" id="trainingName" required>
+                    <label for="trainingName">Nombre del Programa *</label>
+                    <input type="text" id="trainingName" name="nombre" required placeholder="Ej: Curso de Liderazgo">
                 </div>
                 <div class="form-group">
-                    <label for="trainingType">Tipo de Capacitación</label>
-                    <select id="trainingType" required>
+                    <label for="trainingType">Tipo de Capacitación *</label>
+                    <select id="trainingType" name="tipo" required>
                         <option value="">Seleccione...</option>
                         <option value="tecnica">Técnica</option>
                         <option value="habilidades">Habilidades Blandas</option>
@@ -23,22 +37,24 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="instructor">Instructor/Proveedor</label>
-                    <input type="text" id="instructor" required>
+                    <label for="instructor">Instructor/Proveedor *</label>
+                    <input type="text" id="instructor" name="instructor" required placeholder="Ej: Juan Pérez Consulting">
                 </div>
                 <div class="form-group">
-                    <label for="startDate">Fecha Inicio</label>
-                    <input type="date" id="startDate" required>
+                    <label for="startDate">Fecha Inicio *</label>
+                    <input type="date" id="startDate" name="fecha_inicio" required>
                 </div>
                 <div class="form-group">
-                    <label for="duration">Duración (horas)</label>
-                    <input type="number" id="duration" required>
+                    <label for="duration">Duración (horas) *</label>
+                    <input type="number" id="duration" name="duracion_horas" required min="1" placeholder="Ej: 40">
                 </div>
                 <div class="form-group">
-                    <label for="participants">Participantes</label>
-                    <select id="participants" multiple required>
-                        <!-- Se llenará dinámicamente -->
-                    </select>
+                    <label for="cost">Costo Total</label>
+                    <input type="number" id="cost" name="costo" placeholder="Ej: 1000000">
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <textarea id="description" name="descripcion" rows="3" placeholder="Descripción breve del programa"></textarea>
                 </div>
                 <button type="submit" class="btn">Crear Programa</button>
             </form>
@@ -96,4 +112,654 @@
         </div>
     </div>
 </div>
+
+<style>
+.module-header-with-image {
+    position: relative;
+    padding: 120px 0 80px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.module-header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.module-header-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.module-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.85) 0%, rgba(26, 26, 26, 0.65) 100%);
+}
+
+.module-header-with-image .container {
+    position: relative;
+    z-index: 1;
+}
+
+.module-header-content {
+    max-width: 700px;
+}
+
+.module-header-content h1,
+.module-header-content p,
+.module-header-content .text-uppercase {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.module-description {
+    max-width: 700px;
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    background: var(--color-gray-100);
+    border-radius: var(--radius-md);
+}
+
+.stat-item label {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.stat-item span {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.badge {
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-success {
+    background: rgba(46, 125, 50, 0.1);
+    color: var(--color-success);
+}
+
+.badge-warning {
+    background: rgba(245, 124, 0, 0.1);
+    color: var(--color-warning);
+}
+
+.badge-info {
+    background: rgba(2, 119, 189, 0.1);
+    color: var(--color-info);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-gray-600 {
+    color: var(--color-gray-600);
+}
+
+.calendar-container {
+    padding: var(--space-4);
+    min-height: 200px;
+}
+
+.training-event {
+    padding: var(--space-2);
+    margin-bottom: var(--space-2);
+    border-left: 4px solid var(--color-accent);
+    background: var(--color-gray-100);
+    border-radius: var(--radius-sm);
+}
+
+.training-event h4 {
+    margin: 0 0 var(--space-1);
+    font-size: var(--text-base);
+}
+
+.training-event p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+}
+
+.progress-bar {
+    width: 100px;
+    height: 8px;
+    background: var(--color-gray-200);
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: var(--space-2);
+    vertical-align: middle;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-accent) 0%, #a67c52 100%);
+    transition: width 0.3s ease;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: var(--space-4);
+    border-bottom: 2px solid var(--color-gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0d0d0d 100%);
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: white;
+    font-size: var(--text-xl);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: var(--text-xl);
+    cursor: pointer;
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: var(--space-4);
+}
+
+.modal-footer {
+    padding: var(--space-4);
+    border-top: 1px solid var(--color-gray-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    background: var(--color-gray-50);
+}
+
+.detail-section {
+    margin-bottom: var(--space-4);
+}
+
+.detail-section:last-child {
+    margin-bottom: 0;
+}
+
+.detail-grid {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.detail-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+    align-items: center;
+}
+
+.detail-item label {
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: var(--text-sm);
+}
+
+.detail-item span {
+    color: var(--color-gray-700);
+    font-size: var(--text-base);
+}
+
+.btn-sm {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--text-sm);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+    background: var(--color-primary);
+    color: white;
+}
+</style>
+
+<script>
+// Función para cargar capacitaciones
+async function loadTrainings() {
+    try {
+        const response = await fetch('/api/training');
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+            const trainings = result.data;
+            updateTrainingTable(trainings);
+            updateTrainingCalendar(trainings);
+            updateTrainingStats(trainings);
+        }
+    } catch (error) {
+        console.error('Error cargando capacitaciones:', error);
+    }
+}
+
+// Actualizar tabla de seguimiento
+function updateTrainingTable(trainings) {
+    const tbody = document.getElementById('trainingProgressTable');
+    
+    if (trainings.length > 0) {
+        tbody.innerHTML = trainings.map(training => `
+            <tr>
+                <td><strong>${training.nombre || training.titulo}</strong></td>
+                <td>${training.participantes || 0}</td>
+                <td>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${getProgress(training)}%"></div>
+                    </div>
+                    ${getProgress(training)}%
+                </td>
+                <td><span class="badge ${getStatusBadge(training.estado)}">${getStatusLabel(training.estado)}</span></td>
+                <td>
+                    <button class="btn btn-sm btn-outline" onclick="verDetalleCapacitacion(${training.id})">Ver Detalle</button>
+                </td>
+            </tr>
+        `).join('');
+    } else {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5" class="text-center text-gray-600">
+                    No hay programas de capacitación registrados
+                </td>
+            </tr>
+        `;
+    }
+}
+
+// Actualizar calendario
+function updateTrainingCalendar(trainings) {
+    const calendar = document.getElementById('trainingCalendar');
+    
+    // Filtrar próximas capacitaciones
+    const upcoming = trainings.filter(t => {
+        const fecha = new Date(t.fecha_inicio);
+        return fecha >= new Date();
+    }).slice(0, 5);
+    
+    if (upcoming.length > 0) {
+        calendar.innerHTML = upcoming.map(training => `
+            <div class="training-event">
+                <h4>${training.nombre || training.titulo}</h4>
+                <p><i class="fas fa-calendar"></i> ${formatDate(training.fecha_inicio)}</p>
+                <p><i class="fas fa-clock"></i> ${training.duracion_horas} horas - ${training.instructor}</p>
+            </div>
+        `).join('');
+    } else {
+        calendar.innerHTML = `
+            <div class="text-center text-gray-600" style="padding: 2rem;">
+                <i class="fas fa-calendar-times" style="font-size: 3rem; opacity: 0.3;"></i>
+                <p>No hay capacitaciones programadas</p>
+            </div>
+        `;
+    }
+}
+
+// Actualizar estadísticas
+function updateTrainingStats(trainings) {
+    const totalHours = trainings.reduce((sum, t) => sum + (t.duracion_horas || 0), 0);
+    const totalCost = trainings.reduce((sum, t) => sum + (t.costo || 0), 0);
+    
+    // Contar empleados únicos (simplificado)
+    const trainedEmployees = trainings.length > 0 ? trainings.length * 5 : 0; // Aproximación
+    
+    document.getElementById('totalHours').textContent = totalHours;
+    document.getElementById('trainedEmployees').textContent = trainedEmployees;
+    document.getElementById('totalInvestment').textContent = '$' + formatCurrency(totalCost);
+}
+
+// Manejo del formulario
+document.getElementById('newTrainingForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    
+    const formData = new FormData(e.target);
+    const data = {};
+    
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+    
+    // Convertir valores numéricos
+    data.duracion_horas = parseInt(data.duracion_horas) || 0;
+    data.costo = parseFloat(data.costo) || 0;
+    data.estado = 'planificada';
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
+    
+    try {
+        const response = await fetch('/api/training', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+            if (window.ConexaApp && window.ConexaApp.showSuccessMessage) {
+                window.ConexaApp.showSuccessMessage(e.target, '✓ Programa de capacitación creado exitosamente');
+            } else {
+                alert('✓ Programa creado exitosamente');
+            }
+            e.target.reset();
+            loadTrainings();
+        } else {
+            alert('Error: ' + (result.message || 'No se pudo crear el programa'));
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al crear el programa. Por favor, intente nuevamente.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+    }
+}, true);
+
+// Funciones auxiliares
+function getProgress(training) {
+    if (training.estado === 'completada') return 100;
+    if (training.estado === 'en_curso') return 50;
+    return 0;
+}
+
+function getStatusBadge(estado) {
+    const badges = {
+        'planificada': 'badge-info',
+        'en_curso': 'badge-warning',
+        'completada': 'badge-success'
+    };
+    return badges[estado] || 'badge-info';
+}
+
+function getStatusLabel(estado) {
+    const labels = {
+        'planificada': 'Planificada',
+        'en_curso': 'En Curso',
+        'completada': 'Completada'
+    };
+    return labels[estado] || estado;
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-CO', { 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+    });
+}
+
+function formatCurrency(amount) {
+    // Formatear números sin usar toLocaleString que causa problemas
+    const num = Math.round(amount);
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+async function verDetalleCapacitacion(id) {
+    try {
+        const response = await fetch('/api/training');
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+            const training = result.data.find(t => t.id === id);
+            
+            if (!training) {
+                alert('No se encontró el programa de capacitación');
+                return;
+            }
+            
+            // Crear modal
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 700px;">
+                    <div class="modal-header">
+                        <h2><i class="fas fa-graduation-cap"></i> Detalle del Programa</h2>
+                        <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <!-- Información General -->
+                        <div class="detail-section">
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem;">
+                                <i class="fas fa-info-circle"></i> Información General
+                            </h3>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label><i class="fas fa-bookmark"></i> Nombre del Programa:</label>
+                                    <span>${training.nombre || training.titulo || 'N/A'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-tag"></i> Tipo:</label>
+                                    <span>${formatTrainingType(training.tipo)}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-chalkboard-teacher"></i> Instructor/Proveedor:</label>
+                                    <span>${training.instructor || 'N/A'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-signal"></i> Estado:</label>
+                                    <span class="badge ${getStatusBadge(training.estado)}">${getStatusLabel(training.estado)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Programación -->
+                        <div class="detail-section">
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem;">
+                                <i class="fas fa-calendar-check"></i> Programación
+                            </h3>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label><i class="fas fa-calendar-alt"></i> Fecha de Inicio:</label>
+                                    <span>${formatDate(training.fecha_inicio)}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-clock"></i> Duración:</label>
+                                    <span>${training.duracion_horas || 0} horas</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-users"></i> Participantes:</label>
+                                    <span>${training.participantes || 0} empleados</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-tasks"></i> Progreso:</label>
+                                    <span>
+                                        <div class="progress-bar" style="width: 150px; display: inline-block; vertical-align: middle;">
+                                            <div class="progress-fill" style="width: ${getProgress(training)}%"></div>
+                                        </div>
+                                        ${getProgress(training)}%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Inversión -->
+                        <div class="detail-section">
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem;">
+                                <i class="fas fa-dollar-sign"></i> Inversión
+                            </h3>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <label><i class="fas fa-money-bill-wave"></i> Costo Total:</label>
+                                    <span style="font-size: 1.5rem; color: var(--color-accent); font-weight: bold;">
+                                        $${formatCurrency(training.costo || 0)}
+                                    </span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-calculator"></i> Costo por Hora:</label>
+                                    <span>$${training.duracion_horas > 0 ? formatCurrency((training.costo || 0) / training.duracion_horas) : '0'}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <label><i class="fas fa-user-circle"></i> Costo por Participante:</label>
+                                    <span>$${training.participantes > 0 ? formatCurrency((training.costo || 0) / training.participantes) : 'N/A - Sin participantes registrados'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Descripción -->
+                        ${training.descripcion ? `
+                        <div class="detail-section">
+                            <h3 style="color: var(--color-accent); margin-bottom: 1rem; border-bottom: 2px solid var(--color-accent); padding-bottom: 0.5rem;">
+                                <i class="fas fa-align-left"></i> Descripción
+                            </h3>
+                            <p style="color: var(--color-gray-700); line-height: 1.6; padding: 1rem; background: var(--color-gray-100); border-radius: var(--radius-md);">
+                                ${training.descripcion}
+                            </p>
+                        </div>
+                        ` : ''}
+                        
+                        <!-- Registro -->
+                        <div class="detail-section" style="background: var(--color-gray-100); padding: 1rem; border-radius: var(--radius-md); margin-top: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--color-gray-600);">
+                                <span><i class="fas fa-hashtag"></i> ID: ${training.id}</span>
+                                ${training.fecha_creacion ? `<span><i class="fas fa-calendar-plus"></i> Creado: ${formatDate(training.fecha_creacion)}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button class="btn btn-outline" onclick="this.closest('.modal-overlay').remove()">
+                            Cerrar
+                        </button>
+                        <button class="btn" onclick="editarCapacitacion(${training.id})">
+                            <i class="fas fa-edit"></i> Editar Programa
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Cerrar al hacer clic fuera del modal
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error cargando detalle:', error);
+        alert('Error al cargar el detalle de la capacitación');
+    }
+}
+
+function formatTrainingType(tipo) {
+    const types = {
+        'tecnica': 'Técnica',
+        'habilidades': 'Habilidades Blandas',
+        'seguridad': 'Seguridad y Salud',
+        'normativa': 'Normativa/Compliance'
+    };
+    return types[tipo] || tipo || 'N/A';
+}
+
+function editarCapacitacion(id) {
+    alert('Edición de capacitación #' + id + ' - Funcionalidad próximamente');
+    document.querySelector('.modal-overlay')?.remove();
+}
+
+// Cargar datos al iniciar
+document.addEventListener('DOMContentLoaded', () => {
+    loadTrainings();
+});
+</script>
+
 {% endblock %}
